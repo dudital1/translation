@@ -1,8 +1,8 @@
 import { Router } from "express";
-import exampleRouter from "./routes/example-route";
+import translationRouter from "./routes/translation/translation-router";
 
 const v1Router = Router();
 
-v1Router.use("/example-route", exampleRouter);
+v1Router.use("/translate", translationRouter);
 
 export default v1Router;
