@@ -4,6 +4,8 @@ import {
   TranslationResponse,
 } from "../../routes/translation/types";
 import { translationHandler } from "../../handlers/tanslation/translation-handler";
+import { generateRedisKey } from "./utils";
+import { client } from "../../../../app";
 
 export const translationController = {
   async translateTextWithChatgpt(
@@ -16,6 +18,8 @@ export const translationController = {
         textToTranslate,
         targetLanguage
       );
+      const redisKey = generateRedisKey(textToTranslate, targetLanguage);
+      client.set(redisKey, translatedText);
       res.json({ translatedText: translatedText });
     } catch (error) {
       console.error(error);
